@@ -146,15 +146,8 @@ public class TaskRepository extends SQLiteOpenHelper{
         return true;
     }
 
-    public Integer delete(String id) {
+    public Integer delete(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
-    }
-
-    public void deleteAll(){
-        int size = findAll().size();
-        while(size --> 0){
-            delete(size + "");
-        }
+        return db.delete(TABLE_NAME, "ID = ?",new String[] {task.getId().toString()});
     }
 }

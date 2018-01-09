@@ -2,6 +2,7 @@ package com.example.dawid.todo.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.dawid.task.R;
 import com.example.dawid.todo.model.Priority;
+import com.example.dawid.todo.model.Status;
 import com.example.dawid.todo.model.Task;
 import com.example.dawid.todo.repository.TaskRepository;
 
@@ -31,7 +33,6 @@ public class TasksListActivity extends AppCompatActivity {
     TaskRepository taskRepository = new TaskRepository(this);
     CustomAdapter customAdapter;
 
-    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +41,12 @@ public class TasksListActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.list);
         populateTodoList();
 
-        Log.i("tasks", this.tasks.toString());
-
         customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
 
-            Task task = tasks.get(i);
             Intent intent = new Intent(this, TaskDetailsActivity.class);
-            intent.putExtra("task", task);
+            intent.putExtra("task", tasks.get(i));
             startActivity(intent);
 
         });
@@ -113,6 +111,10 @@ public class TasksListActivity extends AppCompatActivity {
                 priorityView.setImageResource(android.R.drawable.star_big_off);
             else if (tasks.get(i).getPriority() == Priority.HIGH)
                 priorityView.setImageResource(android.R.drawable.star_big_on);
+
+            if(tasks.get(i).getStatus() == Status.DONE){
+                priorityView.setImageResource(android.R.drawable.checkbox_on_background);
+            }
 
             title.setText(tasks.get(i).getTitle());
 

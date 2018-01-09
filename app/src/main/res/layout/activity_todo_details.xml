@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/description"
         android:layout_height="wrap_content"
         android:text="#Status:"
@@ -137,7 +137,7 @@
         android:id="@+id/markAsDoneBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/editBtn"
+        android:layout_toLeftOf="@id/removeBtn"
         android:layout_alignParentBottom="true"
         android:text="mark As Done" />
 
@@ -145,7 +145,7 @@
         android:id="@+id/removeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/markAsDoneBtn"
+        android:layout_toLeftOf="@id/editBtn"
         android:layout_alignParentBottom="true"
         android:text="Remove" />
 
