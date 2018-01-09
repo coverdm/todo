@@ -10,17 +10,17 @@ import android.util.Log;
 
 import com.example.dawid.todo.model.Priority;
 import com.example.dawid.todo.model.Status;
-import com.example.dawid.todo.model.Todo;
+import com.example.dawid.todo.model.Task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @SuppressLint("NewApi")
-public class TodoRepository extends SQLiteOpenHelper{
+public class TaskRepository extends SQLiteOpenHelper{
 
-    public static final String DATABASE_NAME = "TodoDataBase7.db";
-    public static final String TABLE_NAME = "todo";
+    public static final String DATABASE_NAME = "TaskDataBase8.db";
+    public static final String TABLE_NAME = "task";
 
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_TITLE = "TITLE";
@@ -31,7 +31,7 @@ public class TodoRepository extends SQLiteOpenHelper{
     public static final String COLUMN_FINISHED_DATE = "FINISHED";
     public static final String COLUMN_MODIFIED_DATE = "MODIFIED";
 
-    public TodoRepository(Context context) {
+    public TaskRepository(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -54,20 +54,20 @@ public class TodoRepository extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean persist(final Todo todo) {
+    public boolean persist(final Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_TITLE,todo.getTitle());
-        contentValues.put(COLUMN_DESCRIPTION,todo.getDescription());
-        contentValues.put(COLUMN_PRIORITY,todo.getPriority().toString());
-        contentValues.put(COLUMN_STATUS, todo.getStatus().toString());
-        contentValues.put(COLUMN_CREATED_DATE, todo.getCreate().toString());
+        contentValues.put(COLUMN_TITLE, task.getTitle());
+        contentValues.put(COLUMN_DESCRIPTION, task.getDescription());
+        contentValues.put(COLUMN_PRIORITY, task.getPriority().toString());
+        contentValues.put(COLUMN_STATUS, task.getStatus().toString());
+        contentValues.put(COLUMN_CREATED_DATE, task.getCreate().toString());
 
-        if(todo.getFinished() != null)
-            contentValues.put(COLUMN_FINISHED_DATE, todo.getFinished().toString());
+        if(task.getFinished() != null)
+            contentValues.put(COLUMN_FINISHED_DATE, task.getFinished().toString());
 
-        if(todo.getModified() != null)
-            contentValues.put(COLUMN_MODIFIED_DATE, todo.getModified().toString());
+        if(task.getModified() != null)
+            contentValues.put(COLUMN_MODIFIED_DATE, task.getModified().toString());
 
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
@@ -76,9 +76,9 @@ public class TodoRepository extends SQLiteOpenHelper{
             return true;
     }
 
-    public Collection<Todo> findAll() {
+    public Collection<Task> findAll() {
 
-        Collection<Todo> todos = new ArrayList<>();
+        Collection<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor resource = db.rawQuery("select * from "+TABLE_NAME,null);
@@ -108,7 +108,7 @@ public class TodoRepository extends SQLiteOpenHelper{
             if(resource.getString(7) != null)
                  modified = LocalDateTime.parse(resource.getString(7));
 
-            Todo todo = new Todo(
+            Task task = new Task(
                     Integer.parseInt(resource.getString(0)),
                     resource.getString(1),
                     resource.getString(2),
@@ -119,32 +119,30 @@ public class TodoRepository extends SQLiteOpenHelper{
                     modified
             );
 
-            Log.e("todorepo", todo.toString());
-
-            todos.add(todo);
+            tasks.add(task);
         }
 
-        return todos;
+        return tasks;
     }
 
-    public boolean update(Todo todo) {
+    public boolean update(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID,todo.getId().toString());
-        contentValues.put(COLUMN_TITLE,todo.getTitle());
-        contentValues.put(COLUMN_DESCRIPTION,todo.getDescription());
-        contentValues.put(COLUMN_PRIORITY,todo.getPriority().toString());
-        contentValues.put(COLUMN_STATUS,todo.getStatus().toString());
+        contentValues.put(COLUMN_ID, task.getId().toString());
+        contentValues.put(COLUMN_TITLE, task.getTitle());
+        contentValues.put(COLUMN_DESCRIPTION, task.getDescription());
+        contentValues.put(COLUMN_PRIORITY, task.getPriority().toString());
+        contentValues.put(COLUMN_STATUS, task.getStatus().toString());
 
-        if(todo.getFinished() != null)
-            contentValues.put(COLUMN_FINISHED_DATE, todo.getFinished().toString());
+        if(task.getFinished() != null)
+            contentValues.put(COLUMN_FINISHED_DATE, task.getFinished().toString());
 
-        if(todo.getModified() != null)
-            contentValues.put(COLUMN_MODIFIED_DATE, todo.getModified().toString());
+        if(task.getModified() != null)
+            contentValues.put(COLUMN_MODIFIED_DATE, task.getModified().toString());
 
-        Log.i("todo_update", todo.toString());
+        Log.i("todo_update", task.toString());
 
-        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { todo.getId().toString() });
+        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { task.getId().toString() });
         return true;
     }
 

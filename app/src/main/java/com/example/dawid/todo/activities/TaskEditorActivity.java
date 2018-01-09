@@ -1,34 +1,33 @@
 package com.example.dawid.todo.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.example.dawid.todo.R;
+import com.example.dawid.task.R;
 import com.example.dawid.todo.model.Priority;
-import com.example.dawid.todo.model.Todo;
-import com.example.dawid.todo.repository.TodoRepository;
+import com.example.dawid.todo.model.Task;
+import com.example.dawid.todo.repository.TaskRepository;
 
-public class EditTodo extends AppCompatActivity{
+public class TaskEditorActivity extends AppCompatActivity{
 
-    private TodoRepository todoRepository;
+    private TaskRepository taskRepository;
     private EditText title;
     private EditText description;
-    private Todo todo;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_todo);
 
-        todoRepository = new TodoRepository(this);
-        todo = (Todo) getIntent().getSerializableExtra("todo");
+        taskRepository = new TaskRepository(this);
+        task = (Task) getIntent().getSerializableExtra("task");
 
         title = findViewById(R.id.title_input_update);
         description = findViewById(R.id.description_input_update);
@@ -42,9 +41,9 @@ public class EditTodo extends AppCompatActivity{
             int index = radioGroup.indexOfChild(radio);
 
             switch (index){
-                case 0: this.todo.updatePriority(Priority.NONE); break;
-                case 1: this.todo.updatePriority(Priority.NORMAL); break;
-                case 2: this.todo.updatePriority(Priority.HIGH); break;
+                case 0: this.task.updatePriority(Priority.NONE); break;
+                case 1: this.task.updatePriority(Priority.NORMAL); break;
+                case 2: this.task.updatePriority(Priority.HIGH); break;
             }
 
         });
@@ -53,8 +52,8 @@ public class EditTodo extends AppCompatActivity{
 
         findViewById(R.id.updateBtn)
                 .setOnClickListener(view -> {
-                    todoRepository.update(todo);
-                    startActivity(new Intent(this, MainActivity.class));
+                    taskRepository.update(task);
+                    startActivity(new Intent(this, TasksListActivity.class));
                 });
     }
 
@@ -64,8 +63,8 @@ public class EditTodo extends AppCompatActivity{
     }
 
     private void setActualValues(){
-        title.setText(todo.getTitle());
-        description.setText(todo.getDescription());
+        title.setText(task.getTitle());
+        description.setText(task.getDescription());
     }
 
     private void initTextChangedListeners(){
@@ -83,7 +82,7 @@ public class EditTodo extends AppCompatActivity{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                todo.updateDescription(description.getText().toString());
+                task.updateDescription(description.getText().toString());
             }
         });
 
@@ -100,7 +99,7 @@ public class EditTodo extends AppCompatActivity{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                todo.updateTitle(title.getText().toString());
+                task.updateTitle(title.getText().toString());
             }
         });
     }

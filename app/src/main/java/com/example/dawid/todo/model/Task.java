@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @SuppressLint("NewApi")
-public class Todo implements Serializable {
+public class Task implements Serializable {
 
     private Integer id;
     private String title;
@@ -17,7 +17,7 @@ public class Todo implements Serializable {
     private LocalDateTime finished;
     private LocalDateTime modified;
 
-    public Todo(String title, String description, Priority priority, Status status, LocalDateTime create) {
+    public Task(String title, String description, Priority priority, Status status, LocalDateTime create) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -25,7 +25,7 @@ public class Todo implements Serializable {
         this.create = create;
     }
 
-    public Todo(Integer id, String title, String description, Priority priority, Status status, LocalDateTime create, LocalDateTime finished, LocalDateTime modified) {
+    public Task(Integer id, String title, String description, Priority priority, Status status, LocalDateTime create, LocalDateTime finished, LocalDateTime modified) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -90,7 +90,7 @@ public class Todo implements Serializable {
 
     @Override
     public String toString() {
-        return "Todo{" +
+        return "Task{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

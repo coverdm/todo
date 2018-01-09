@@ -9,19 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.example.dawid.todo.R;
+import com.example.dawid.task.R;
 import com.example.dawid.todo.model.Priority;
 import com.example.dawid.todo.model.Status;
-import com.example.dawid.todo.model.Todo;
-import com.example.dawid.todo.repository.TodoRepository;
+import com.example.dawid.todo.model.Task;
+import com.example.dawid.todo.repository.TaskRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class NewItemActivity extends AppCompatActivity {
+public class TaskCreatorActivity extends AppCompatActivity {
 
     private Priority priority = Priority.NORMAL;
-    TodoRepository todoRepository = new TodoRepository(this);
+    TaskRepository taskRepository = new TaskRepository(this);
 
     @SuppressLint("NewApi")
     @Override
@@ -50,8 +49,8 @@ public class NewItemActivity extends AppCompatActivity {
 
         createBtn.setOnClickListener(view -> {
 
-            Intent intent = new Intent(this, MainActivity.class);
-            todoRepository.persist(new Todo(titleInput.getText().toString(),
+            Intent intent = new Intent(this, TasksListActivity.class);
+            taskRepository.persist(new Task(titleInput.getText().toString(),
                     descriptionInput.getText().toString(),
                     this.priority, Status.TODO, LocalDateTime.now())
             );

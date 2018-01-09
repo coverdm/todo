@@ -15,20 +15,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.dawid.todo.R;
+import com.example.dawid.task.R;
 import com.example.dawid.todo.model.Priority;
-import com.example.dawid.todo.model.Todo;
-import com.example.dawid.todo.repository.TodoRepository;
+import com.example.dawid.todo.model.Task;
+import com.example.dawid.todo.repository.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @SuppressLint("NewApi")
-public class MainActivity extends AppCompatActivity {
+public class TasksListActivity extends AppCompatActivity {
 
-    private List<Todo> todos = new ArrayList<>();
-    TodoRepository todoRepository = new TodoRepository(this);
+    private List<Task> tasks = new ArrayList<>();
+    TaskRepository taskRepository = new TaskRepository(this);
     CustomAdapter customAdapter;
 
     @SuppressLint("NewApi")
@@ -40,38 +40,39 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.list);
         populateTodoList();
 
-        Log.i("todos", this.todos.toString());
+        Log.i("tasks", this.tasks.toString());
 
         customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
 
-            Todo todo = todos.get(i);
-            Intent intent = new Intent(this, TodoDetails.class);
-            intent.putExtra("todo", todo);
+            Task task = tasks.get(i);
+            Intent intent = new Intent(this, TaskDetailsActivity.class);
+            intent.putExtra("task", task);
             startActivity(intent);
+
         });
     }
 
     private void populateTodoList() {
-        todos.addAll(todoRepository.findAll());
+        tasks.addAll(taskRepository.findAll());
     }
 
     private void orderByPriorityDesc() {
-        Collections.sort(todos, (a, b) -> a.getPriority().compareTo(b.getPriority()));
+        Collections.sort(tasks, (a, b) -> a.getPriority().compareTo(b.getPriority()));
     }
 
     private void orderByCreatedTimeDesc() {
-        Collections.sort(todos, (a, b) -> a.getCreate().compareTo(b.getCreate()));
-        Collections.reverse(todos);
+        Collections.sort(tasks, (a, b) -> a.getCreate().compareTo(b.getCreate()));
+        Collections.reverse(tasks);
     }
 
     private void orderByNameDesc() {
-        Collections.sort(todos, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+        Collections.sort(tasks, (a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 
     private void orderByStatusDesc() {
-        Collections.sort(todos, (a, b) -> a.getStatus().compareTo(b.getStatus()));
+        Collections.sort(tasks, (a, b) -> a.getStatus().compareTo(b.getStatus()));
     }
 
     @Override
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return todos.size();
+            return tasks.size();
         }
 
         @Override
@@ -106,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
             ImageView priorityView = view.findViewById(R.id.priority);
             TextView title = view.findViewById(R.id.name);
 
-            if (todos.get(i).getPriority() == Priority.NONE)
+            if (tasks.get(i).getPriority() == Priority.NONE)
                 priorityView.setImageResource(android.R.drawable.star_off);
-            else if (todos.get(i).getPriority() == Priority.NORMAL)
+            else if (tasks.get(i).getPriority() == Priority.NORMAL)
                 priorityView.setImageResource(android.R.drawable.star_big_off);
-            else if (todos.get(i).getPriority() == Priority.HIGH)
+            else if (tasks.get(i).getPriority() == Priority.HIGH)
                 priorityView.setImageResource(android.R.drawable.star_big_on);
 
-            title.setText(todos.get(i).getTitle());
+            title.setText(tasks.get(i).getTitle());
 
             return view;
         }
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNewItem() {
-        Intent intent = new Intent(this, NewItemActivity.class);
+        Intent intent = new Intent(this, TaskCreatorActivity.class);
         startActivity(intent);
     }
 
