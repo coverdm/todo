@@ -16,6 +16,7 @@ import com.example.dawid.todo.model.Todo;
 import com.example.dawid.todo.repository.TodoRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class NewItemActivity extends AppCompatActivity {
 
@@ -52,7 +53,7 @@ public class NewItemActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             todoRepository.persist(new Todo(titleInput.getText().toString(),
                     descriptionInput.getText().toString(),
-                    this.priority, Status.TODO, LocalDate.now(), LocalDate.now())
+                    this.priority, Status.TODO, LocalDateTime.now())
             );
             startActivity(intent);
         });

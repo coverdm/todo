@@ -1,9 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dawid.todo.activities.TodoDetails">
+    tools:context="com.example.dawid.todo.activities.TodoDetails"
+    android:padding="20dp">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="27sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/name"
+        android:textStyle="italic"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/description"
+        android:layout_height="wrap_content"
+        android:text="#Status:"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/status_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/status"
+        android:layout_toEndOf="@+id/status"
+        android:layout_toRightOf="@+id/status"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/priority"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/status"
+        android:layout_height="wrap_content"
+        android:text="#Priority:"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/priority_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/priority"
+        android:layout_toEndOf="@+id/priority"
+        android:layout_toRightOf="@+id/priority"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/created_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/priority"
+        android:text="#Created:"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/created_date_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/created_date"
+        android:layout_toEndOf="@+id/created_date"
+        android:layout_toRightOf="@+id/created_date"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/modified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/created_date"
+        android:text="#Modified:"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/modified_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/modified"
+        android:layout_toEndOf="@+id/modified"
+        android:layout_toRightOf="@+id/modified"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/finished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modified"
+        android:text="#Finished:"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/finished_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/finished"
+        android:layout_toEndOf="@+id/finished"
+        android:layout_toRightOf="@+id/finished"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="edit" />
+
+    <Button
+        android:id="@+id/markAsDoneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/editBtn"
+        android:layout_alignParentBottom="true"
+        android:text="mark As Done" />
+
+    <Button
+        android:id="@+id/removeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/markAsDoneBtn"
+        android:layout_alignParentBottom="true"
+        android:text="Remove" />
+
+</android.widget.RelativeLayout>

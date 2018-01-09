@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.NewItemActivity" />
-        <activity android:name=".activities.TodoDetails"></activity>
+        <activity android:name=".activities.TodoDetails" />
+        <activity android:name=".activities.EditTodo"></activity>
     </application>
 
 </manifest>

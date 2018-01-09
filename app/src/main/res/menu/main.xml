@@ -7,10 +7,16 @@
         app:showAsAction="always|withText"
         android:icon="@android:drawable/ic_menu_add"/>
 
-    <item android:id="@+id/ShowToDo"
-        android:title="Show todo" />
+    <item android:id="@+id/SortByName"
+        android:title="Sort by name" />
 
-    <item android:id="@+id/ShowDone"
-        android:title="Show done" />
+    <item android:id="@+id/SortByDate"
+        android:title="Sort by date" />
+
+    <item android:id="@+id/SortByPriority"
+        android:title="Sort by priority" />
+
+    <item android:id="@+id/SortByStatus"
+        android:title="Sort by status" />
 
 </menu>

@@ -3,30 +3,46 @@ package com.example.dawid.todo.model;
 import android.annotation.SuppressLint;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SuppressLint("NewApi")
 public class Todo implements Serializable {
 
+    private Integer id;
     private String title;
     private String description;
     private Priority priority;
     private Status status;
-    private LocalDate create;
-    private LocalDate end;
+    private LocalDateTime create;
+    private LocalDateTime finished;
+    private LocalDateTime modified;
 
-    public Todo(String title, String description, Priority priority, Status status, LocalDate create, LocalDate end) {
+    public Todo(String title, String description, Priority priority, Status status, LocalDateTime create) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
         this.create = create;
-        this.end = end;
+    }
+
+    public Todo(Integer id, String title, String description, Priority priority, Status status, LocalDateTime create, LocalDateTime finished, LocalDateTime modified) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.priority = priority;
+        this.status = status;
+        this.create = create;
+        this.finished = finished;
+        this.modified = modified;
     }
 
     public void finishTodo(){
         status = Status.DONE;
-        end = LocalDate.now();
+        finished = LocalDateTime.now();
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -45,23 +61,48 @@ public class Todo implements Serializable {
         return status;
     }
 
-    public LocalDate getCreate() {
+    public LocalDateTime getCreate() {
         return create;
     }
 
-    public LocalDate getEnd() {
-        return end;
+    public LocalDateTime getFinished() {
+        return finished;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+        setWhenModified();
+    }
+
+    private void setWhenModified() {
+        this.modified = LocalDateTime.now();
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
+        setWhenModified();
+    }
+
+    public void updatePriority(Priority priority) {
+        this.priority = priority;
+        setWhenModified();
     }
 
     @Override
     public String toString() {
         return "Todo{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", priority=" + priority +
                 ", status=" + status +
                 ", create=" + create +
-                ", end=" + end +
+                ", finished=" + finished +
+                ", modified=" + modified +
                 '}';
+    }
+
+    public LocalDateTime getModified() {
+        return modified;
     }
 }
